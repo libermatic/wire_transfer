@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include wire_transfer *.css
+recursive-include wire_transfer *.csv
+recursive-include wire_transfer *.html
+recursive-include wire_transfer *.ico
+recursive-include wire_transfer *.js
+recursive-include wire_transfer *.json
+recursive-include wire_transfer *.md
+recursive-include wire_transfer *.png
+recursive-include wire_transfer *.py
+recursive-include wire_transfer *.svg
+recursive-include wire_transfer *.txt
+recursive-exclude wire_transfer *.pyc
