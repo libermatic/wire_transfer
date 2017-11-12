@@ -4,6 +4,7 @@
 frappe.ui.form.on('Wire Transaction', {
 	'onload': function(frm, dt, dn) {
 		if (frm.doc.__islocal) {
+			frm.set_value('company', frappe.defaults.get_default('Company'));
 			frappe.call({
 		    method: 'frappe.client.get_value',
 		    args: {

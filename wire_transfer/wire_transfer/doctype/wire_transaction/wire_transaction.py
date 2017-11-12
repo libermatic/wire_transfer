@@ -4,7 +4,6 @@
 
 from __future__ import unicode_literals
 import frappe
-from erpnext import get_default_company
 from erpnext.accounts.utils import get_account_currency
 from erpnext.accounts.general_ledger import make_gl_entries
 from erpnext.controllers.accounts_controller import AccountsController
@@ -20,7 +19,6 @@ class WireTransaction(AccountsController):
 
 	def set_missing_fields(self):
 		self.posting_date = self.transaction_date
-		self.company = get_default_company()
 
 	def make_gl_entries(self, cancel=0, adv_adj=0):
 		gl_entries = [
