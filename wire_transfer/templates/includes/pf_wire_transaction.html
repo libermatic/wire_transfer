@@ -1,0 +1,150 @@
+<style>
+  @media screen {
+    .print-format {
+      width: 4.135in;
+      padding: 0.25in;
+      min-height: 5.845in;
+    }
+  }
+
+  .print-format header, .print-format footer, .print-format section,
+  .print-format h1,
+  .print-format div, .print-format span,
+  .print-format dl, .print-format dt, .print-format dd {
+    font-family: Monospace;
+    line-height: 1.5;
+  }
+
+  .print-format header {
+    margin-bottom: 1em;
+  }
+
+  .print-format h1 {
+    border-top: 1px solid #888;
+    border-bottom: 1px solid #888;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    font-size: 1.5rem;
+  }
+
+  .print-format dl {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-bottom: 1em;
+  }
+
+  .print-format dl > div {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  .print-format dl > div.not-full-width {
+    width: initial;
+  }
+
+  .print-format dl dt::after {
+    content: ': ';
+    margin-right: 1em;
+  }
+
+  .print-format dl.major > div {
+    justify-content: flex-end;
+  }
+  .print-format dl.major dt {
+    /*font-weight: normal;*/
+  }
+  .print-format dl.major dd {
+    min-width: 6em;
+    text-align: right;
+    /*font-weight: bold;*/
+  }
+  .print-format dl.major > div:last-of-type > dd {
+    margin-top: .125em;
+    padding-top: .125em;
+    border-top: 1px solid #888;
+  }
+
+  .print-format footer {
+    margin-top: 1em;
+    padding-top: .25em;
+    border-top: 1px solid #888;
+    text-align: center;
+    font-style: italic;
+  }
+</style>
+
+<header>
+  <div>{{ doc.company }}</div>
+  {%- set company_address = frappe.get_doc("Address", doc.company + "-Billing") -%}
+  {%- if company_address -%}
+    {%- set company_address_line = [company_address.address_line1, company_address.address_line2]|select-%}
+    <div>
+      <span>{{ company_address_line|join(", ") }}</span>
+      {%- if company_address.phone -%}
+        <span>{{ company_address.phone }}</span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</header>
+
+<h1>{{ _("Money Transfer") }}</h1>
+
+<dl>
+  <div class="not-full-width">
+    <dt>{{ _("Receipt No") }}</dt>
+    <dd>{{ doc.name }}</dd>
+  </div>
+  <div class="not-full-width">
+    <dt>{{ _("Date") }}</dt>
+    <dd>{{ doc.transaction_date }}</dd>
+  </div>
+  {%- set customer = frappe.get_doc("Customer", doc.customer) -%}
+  <div>
+    <dt>{{ _("Customer") }}</dt>
+    <dd>{{ customer.customer_name }}</dd>
+  </div>
+  {%- if customer.id_no -%}
+    <div>
+      <dt>{{ customer.id_type }}</dt>
+      <dd>{{ customer.id_no }}</dd>
+    </div>
+  {%- endif -%}
+</dl>
+
+<dl>
+  {%- set account = frappe.get_doc("Wire Account", doc.to_account) -%}
+  <div>
+    <dt>{{ _("Account Name") }}</dt>
+    <dd>{{ account.account_name }}</dd>
+  </div>
+  {%- set account_details = [account.bank, None, account.branch, account.ifsc]|select|list -%}
+  <div>
+    <dt>{{ _("Account No") }}</dt>
+    <dd>
+      {{ account.account_no }}
+      {%- if account_details|len > 0 -%}
+        <br />
+        {{ account_details|join(" ") }}
+      {%- endif -%}
+    </dd>
+  </div>
+</dl>
+
+<dl class="major">
+  {%- set currency = frappe.db.get_value("Company", doc.company, "default_currency") -%}
+  <div>
+    <dt>{{ _("Amount") }}</dt>
+    <dd>{{ doc.get_formatted("amount", currency=currency) }}</dd>
+  </div>
+  <div>
+    <dt>{{ _("Transaction Charges") }}</dt>
+    <dd>{{ doc.get_formatted("charges", currency=currency) }}</dd>
+  </div>
+  <div>
+    <dt>{{ _("Total") }}</dt>
+    <dd>{{ doc.get_formatted("total", currency=currency) }}</dd>
+  </div>
+</dl>
+
+<footer>{{ _("Thank you, please visit again.") }}</footer>
