@@ -6,7 +6,7 @@ def get_data():
 	return [
 		{
 			"module_name": "Wire Transfer",
-			"color": "green",
+			"color": "#43A047",
 			"icon": "fa fa-money",
 			"type": "module",
 			"label": _("Wire Transfer")
