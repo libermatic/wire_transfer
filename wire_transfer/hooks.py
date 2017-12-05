@@ -10,7 +10,20 @@ app_icon = "fa fa-money"
 app_color = "green"
 app_email = "info@libermatic.com"
 app_license = "MIT"
-fixtures = ["Custom Field"]
+fixtures = [{
+        'doctype': 'Custom Field',
+        'filters': [
+                { 'dt': 'Customer' },
+                [
+                    'fieldname',
+                    'in',
+                    (
+                        'id_information',
+                        'id_type',
+                        'id_no',
+                    )]
+            ]
+    }]
 
 # Includes in <head>
 # ------------------
