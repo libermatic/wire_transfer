@@ -23,6 +23,9 @@ fixtures = [{
                         'id_no',
                     )]
             ]
+    }, {
+        'doctype': 'Custom Script',
+        'filters': { 'dt': 'Customer' }
     }]
 
 # Includes in <head>

@@ -1,0 +1,12 @@
+[
+  {
+    "docstatus": 0,
+    "doctype": "Custom Script",
+    "dt": "Customer",
+    "modified": "2017-12-06 03:27:49.952519",
+    "name": "Customer-Client",
+    "script":
+      "frappe.ui.form.on('Customer', 'refresh', function(frm) {\n  frm.add_custom_button(__('Make Wire Transaction'), function() {\n    frm.make_new('Wire Transaction');\n  });\n});",
+    "script_type": "Client"
+  }
+]
