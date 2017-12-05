@@ -4,7 +4,7 @@
 cur_frm.fields_dict['default_debit_account'].get_query = function(doc) {
   return {
     filters: {
-      account_type: 'Bank',
+      account_type: 'Cash',
       is_group: false,
     },
   };
@@ -13,7 +13,7 @@ cur_frm.fields_dict['default_debit_account'].get_query = function(doc) {
 cur_frm.fields_dict['default_credit_account'].get_query = function(doc) {
   return {
     filters: {
-      account_type: 'Cash',
+      account_type: 'Bank',
       is_group: false,
     },
   };
