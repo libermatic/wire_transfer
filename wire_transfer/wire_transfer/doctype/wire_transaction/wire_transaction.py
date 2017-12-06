@@ -6,7 +6,6 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 from frappe.utils import flt, random_string
-from erpnext import get_default_company
 from erpnext.accounts.party import get_party_account
 from erpnext.accounts.utils import get_account_currency
 from erpnext.accounts.general_ledger import make_gl_entries
@@ -49,7 +48,6 @@ class WireTransaction(AccountsController):
 
 	def set_missing_fields(self):
 		self.posting_date = self.transaction_date
-		self.company = get_default_company()
 
 	def make_parent_gl_entries(self, cancel=0, adv_adj=0):
 		party_account = get_party_account('Customer', self.customer, self.company)
