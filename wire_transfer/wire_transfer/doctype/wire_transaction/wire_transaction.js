@@ -111,6 +111,7 @@ frappe.ui.form.on('Wire Transaction', {
   },
   onload: async function(frm) {
     if (frm.doc.__islocal) {
+      frm.add_fetch('to_account', 'account_name', 'account_holder');
       const { message } = await frappe.db.get_value(
         'Wire Transfer Settings',
         null,
