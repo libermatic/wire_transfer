@@ -3,6 +3,9 @@
 
 frappe.ui.form.on('Wire Transaction', {
   refresh: async function(frm) {
+    if (frm.doc['docstatus'] === 1) {
+      frm.set_df_property('is_paid', 'read_only', 1);
+    }
     if (
       frm.doc['docstatus'] === 1 &&
       0 < frm.doc['paid_amount'] &&
