@@ -1,0 +1,56 @@
+<dl>
+  <div class="not-full-width">
+    <dt>{{ _("Receipt No") }}</dt>
+    <dd>{{ doc.name }}</dd>
+  </div>
+  <div class="not-full-width">
+    <dt>{{ _("Date") }}</dt>
+    <dd>{{ doc.transaction_date }}</dd>
+  </div>
+  {%- set customer = frappe.get_doc("Customer", doc.customer) -%}
+  <div>
+    <dt>{{ _("Customer") }}</dt>
+    <dd>{{ customer.customer_name }}</dd>
+  </div>
+  {%- if customer.id_no -%}
+    <div>
+      <dt>{{ customer.id_type }}</dt>
+      <dd>{{ customer.id_no }}</dd>
+    </div>
+  {%- endif -%}
+</dl>
+
+<dl>
+  {%- set account = frappe.get_doc("Wire Account", doc.to_account) -%}
+  <div>
+    <dt>{{ _("Account Name") }}</dt>
+    <dd>{{ account.account_name }}</dd>
+  </div>
+  {%- set account_details = [account.bank, None, account.branch, account.ifsc]|select|list -%}
+  <div>
+    <dt>{{ _("Account No") }}</dt>
+    <dd>
+      {{ account.account_no }}
+      {%- if account_details|len > 0 -%}
+        <br />
+        {{ account_details|join(" ") }}
+      {%- endif -%}
+    </dd>
+  </div>
+</dl>
+
+<dl class="major">
+  {%- set currency = frappe.db.get_value("Company", doc.company, "default_currency") -%}
+  <div>
+    <dt>{{ _("Amount") }}</dt>
+    <dd>{{ doc.get_formatted("amount", currency=currency) }}</dd>
+  </div>
+  <div>
+    <dt>{{ _("Transaction Charges") }}</dt>
+    <dd>{{ doc.get_formatted("charges", currency=currency) }}</dd>
+  </div>
+  <div>
+    <dt>{{ _("Total") }}</dt>
+    <dd>{{ doc.get_formatted("total", currency=currency) }}</dd>
+  </div>
+</dl>

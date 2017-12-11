@@ -1,0 +1,81 @@
+<style>
+  @media screen {
+    .print-format {
+      width: 4.135in;
+      padding: 0.25in;
+      min-height: 5.845in;
+    }
+  }
+
+  .print-format header, .print-format footer, .print-format section,
+  .print-format h1,
+  .print-format div,
+  .print-format dl, .print-format dt, .print-format dd {
+    font-family: Monospace;
+    line-height: 1.8;
+  }
+
+  .print-format header {
+    margin-bottom: 1em;
+  }
+  .print-format header > div {
+    text-align: center;
+  }
+  .print-format header > div:first-of-type {
+    font-weight: bold;
+  }
+
+  .print-format h1 {
+    border-top: 1px solid #888;
+    border-bottom: 1px solid #888;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    font-size: 1.5rem;
+  }
+
+  .print-format dl {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-bottom: 1em;
+  }
+
+  .print-format dl > div {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  .print-format dl > div.not-full-width {
+    width: initial;
+  }
+
+  .print-format dl dt::after {
+    content: ': ';
+    margin-right: 1em;
+  }
+
+  .print-format dl.major {
+    border-top: 1px solid #888;
+    border-bottom: 1px solid #888;
+    margin: 1rem 0;
+    padding: 1rem 0;
+  }
+  .print-format dl.major > div {
+    justify-content: flex-end;
+  }
+  .print-format dl.major dd {
+    min-width: 8em;
+    text-align: right;
+  }
+  .print-format dl.major > div:last-of-type > dd {
+    margin-top: .125em;
+    padding-top: .125em;
+    border-top: 1px solid #888;
+  }
+
+  .print-format footer {
+    margin-top: 1em;
+    text-align: center;
+    font-style: italic;
+  }
+</style>

@@ -1,0 +1,11 @@
+<header>
+  <div>{{ doc.company }}</div>
+  {%- set company_address = frappe.get_doc("Address", doc.company + "-Billing") -%}
+  {%- if company_address -%}
+    {%- set company_address_line = [company_address.address_line1, company_address.address_line2]|select-%}
+    <div>{{ company_address_line|join(", ") }}</div>
+    {%- if company_address.phone -%}
+      <div>{{ company_address.phone }}</div>
+    {%- endif -%}
+  {%- endif -%}
+</header>
