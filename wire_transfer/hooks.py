@@ -69,7 +69,7 @@ doctype_js = { 'Customer' : 'public/js/custom_script/customer.js' }
 # ------------
 
 # before_install = "wire_transfer.install.before_install"
-# after_install = "wire_transfer.install.after_install"
+after_install = "wire_transfer.install.after_install"
 
 # Desk Notifications
 # ------------------
